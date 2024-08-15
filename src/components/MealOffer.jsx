@@ -5,13 +5,16 @@ import { useState, useEffect } from "react";
 export default function MealOffer() {
     
     const [availableMeals, setAvailableMeals] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
 
 
     useEffect(() => {
         async function fetchMeals() {
+            setIsFetching(true);
             const response = await fetch("http://localhost:3000/meals");
             const fetchedMeals = await response.json();
             setAvailableMeals(fetchedMeals);
+            setIsFetching(false);
         }
         fetchMeals();
     }, []);
@@ -20,7 +23,8 @@ export default function MealOffer() {
     
     return (
         <ul id="meals">
-            {availableMeals.map((meal) => (
+            {isFetching && <h3 className="loading-message">Loading available meals...</h3>}
+            {!isFetching && availableMeals.map((meal) => (
                 <li key={meal.id} className="meal-item">
                     <div className="article">
                         <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />

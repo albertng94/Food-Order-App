@@ -1,4 +1,5 @@
 import logo from "./assets/logo.jpg"
+import MealOffer from "./components/MealOffer.jsx";
 
 function App() {
   return (
@@ -8,8 +9,9 @@ function App() {
           <img src={logo} alt="A burger logo" />
           <h1>REACTFOOD</h1>
         </div>
-        <button className="button text-button">Cart</button>
+        <button className="text-button">Cart</button>
       </div>
+      <MealOffer />
     </>
   );
 }

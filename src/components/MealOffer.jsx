@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Error from "./Error.jsx";
 
 
 
@@ -6,20 +7,44 @@ export default function MealOffer() {
     
     const [availableMeals, setAvailableMeals] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
+    const [error, setError] = useState(false);
 
 
     useEffect(() => {
         async function fetchMeals() {
             setIsFetching(true);
-            const response = await fetch("http://localhost:3000/meals");
-            const fetchedMeals = await response.json();
-            setAvailableMeals(fetchedMeals);
+            try {
+                const response = await fetch("http://localhost:3000/meals");
+                const fetchedMeals = await response.json();
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch meals.");
+                }
+
+                setAvailableMeals(fetchedMeals);
+            } catch (error) {
+                setError({
+                    message: error.message || "Unable to load available meals, please try again later..."
+                });
+            }
+
             setIsFetching(false);
         }
         fetchMeals();
     }, []);
 
-    console.log(availableMeals);
+    function handleErrorModal() {
+        setError(false);
+    }
+
+
+    if (error) {
+        return <Error 
+            title={"An error occurred!"} 
+            message={error.message}
+            onConfirm={handleErrorModal}
+        />
+    }
     
     return (
         <ul id="meals">
@@ -40,5 +65,5 @@ export default function MealOffer() {
 }
 
 
-// Import meals from backend
-// List them to be rendered
+// Error handling
+// Optimize code

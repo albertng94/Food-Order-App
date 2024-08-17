@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Error from "./Error.jsx";
 import { fetchAvailableMeals } from "../data/http.js";
-
+import { CartContext } from "../store/shopping-cart-context.jsx";
 
 
 export default function MealOffer() {
@@ -10,6 +10,7 @@ export default function MealOffer() {
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState(false);
 
+    let { addItemToCart } = useContext(CartContext);
 
     useEffect(() => {
         async function fetchMeals() {
@@ -33,7 +34,6 @@ export default function MealOffer() {
         setError(false);
     }
 
-
     if (error) {
         return <Error 
             title={"An error occurred!"} 
@@ -53,7 +53,14 @@ export default function MealOffer() {
                         <p className="meal-item-price">{meal.price}</p>
                         <p className="meal-item-description meal-item-actions">{meal.description}</p>
                     </div>
-                    <button className="meal-item-actions button">Add to Cart</button>
+                    <button 
+                        onClick={() => addItemToCart({
+                            id: meal.id,
+                            name: meal.name,
+                            price: Number(meal.price)
+                        })}  
+                        className="meal-item-actions button"
+                    >Add to Cart</button>
                 </li>
             ))}
         </ul>

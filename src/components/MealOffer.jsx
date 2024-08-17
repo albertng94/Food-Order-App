@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Error from "./Error.jsx";
+import { fetchAvailableMeals } from "../data/http.js";
 
 
 
@@ -14,18 +15,13 @@ export default function MealOffer() {
         async function fetchMeals() {
             setIsFetching(true);
             try {
-                const response = await fetch("http://localhost:3000/meals");
-                const fetchedMeals = await response.json();
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch meals.");
-                }
-
+                const fetchedMeals = await fetchAvailableMeals();
                 setAvailableMeals(fetchedMeals);
             } catch (error) {
                 setError({
                     message: error.message || "Unable to load available meals, please try again later..."
                 });
+                setIsFetching(false);
             }
 
             setIsFetching(false);
@@ -65,5 +61,4 @@ export default function MealOffer() {
 }
 
 
-// Error handling
 // Optimize code

@@ -1,16 +1,19 @@
 import { useContext } from "react";
 import { CartContext } from "../store/shopping-cart-context";
 
+function calculateTotalPrice(itemsArr) {
+    let totalPrice = 0;
+    itemsArr.forEach(element => {
+        totalPrice += (element.quantity * element.price);
+    });
+    return totalPrice;
+}
+
 export default function Cart() {
     
     let { items } = useContext(CartContext);
 
-    let totalPrice; 
-    
-    items.map((item) => {
-        totalPrice += Number(item.quantity)*Number(item.price);
-    });
-
+    let totalPrice = calculateTotalPrice(items);
     console.log(totalPrice);
 
     return (

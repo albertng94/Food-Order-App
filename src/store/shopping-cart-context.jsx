@@ -44,6 +44,7 @@ function shoppingCartReducer(state, action) {
     return state;
 }
 
+
 export default function CartContextProvider({children}) {
 
     const [shoppingCart, shoppingCartDispatch] = useReducer(
@@ -62,7 +63,7 @@ export default function CartContextProvider({children}) {
         });
     }
 
-    console.log(shoppingCart.items);
+    console.log(shoppingCart.items);;
 
     let cartCtx = {
         items: shoppingCart.items,

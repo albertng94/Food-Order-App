@@ -66,6 +66,3 @@ export default function MealOffer() {
         </ul>
     );
 }
-
-
-// Optimize code

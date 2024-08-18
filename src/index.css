@@ -309,3 +309,9 @@ h1 {
   border: none;
   cursor: pointer;
 }
+
+/* CART WITHOUT ITEMS*/
+
+.cart-without-items {
+  margin-top: 2rem;
+}

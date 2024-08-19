@@ -315,3 +315,16 @@ h1 {
 .cart-without-items {
   margin-top: 2rem;
 }
+
+/* CART TRASH ION ICON*/
+
+ion-icon {
+  cursor: pointer;
+  color: #312c1d;
+  font-size: 22px;
+}
+
+ion-icon:hover,
+ion-icon:active {
+  color: rgb(242, 56, 56);
+}

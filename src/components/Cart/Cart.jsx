@@ -10,7 +10,7 @@ function calculateTotalPrice(itemsArr) {
     return totalPrice;
 }
 
-const Cart = forwardRef(function Cart({handleCloseModal}, ref) {
+const Cart = forwardRef(function Cart({handleCloseModal, onCheckOut}, ref) {
     
     let { items } = useContext(CartContext);
 
@@ -33,7 +33,7 @@ const Cart = forwardRef(function Cart({handleCloseModal}, ref) {
             <p className="cart-total">{`$${totalPrice.toFixed(2)}`}</p>
             <div className="modal-actions">
                 <button className="text-button" onClick={handleCloseModal}>Close</button>
-                <button className="button">Go to checkout</button>
+                <button className="button" onClick={onCheckOut}>Go to checkout</button>
             </div>
         </dialog>
     );

@@ -1,7 +1,7 @@
 import logo from "../assets/logo.jpg";
 import { useContext, useRef } from "react";
 import { CartContext } from "../store/shopping-cart-context";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
 
 export default function Header() {
 

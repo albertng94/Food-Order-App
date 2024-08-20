@@ -1,7 +1,7 @@
 import Header from "./components/Header.jsx";
 import MealOffer from "./components/MealOffer.jsx";
 import CartContextProvider from "./store/shopping-cart-context.jsx";
-import Cart from "./components/Cart.jsx";
+import Cart from "./components/Cart/Cart.jsx";
 
 function App() {
 

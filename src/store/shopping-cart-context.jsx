@@ -111,14 +111,13 @@ export default function CartContextProvider({children}) {
     }
 
     function handleDeleteCartItem(id) {
-        console.log(id);
         shoppingCartDispatch({
             type: "DELETE_ITEM",
             payload: id
         })
     }
 
-    console.log(shoppingCart.items);;
+    console.log(shoppingCart.items);
 
     let cartCtx = {
         items: shoppingCart.items,

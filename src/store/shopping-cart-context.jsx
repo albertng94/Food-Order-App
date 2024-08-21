@@ -5,6 +5,14 @@ export const CartContext = createContext({
     addItemToCart: () => {},
 });
 
+function calculateTotalPrice(itemsArr) {
+    let totalPrice = 0;
+    itemsArr.forEach(element => {
+        totalPrice += (element.quantity * element.price);
+    });
+    return totalPrice;
+}
+
 function shoppingCartReducer(state, action) {
     if (action.type === "ADD_ITEM") {
         const updatedItems = [...state.items];
@@ -117,10 +125,13 @@ export default function CartContextProvider({children}) {
         })
     }
 
+    const totalPrice = calculateTotalPrice(shoppingCart.items);
+
     console.log(shoppingCart.items);
 
     let cartCtx = {
         items: shoppingCart.items,
+        totalPrice,
         addItemToCart: handleAddItemToCart,
         updateCartItem: handleUpdateCartItem,
         deleteCartItem: handleDeleteCartItem

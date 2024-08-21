@@ -3,13 +3,13 @@ import { CartContext } from "../../store/shopping-cart-context";
 import Input from "./Input";
 
 const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal}, ref) {
-
-
+ 
+    let { totalPrice } = useContext(CartContext);
     
     return (
         <dialog className="modal" ref={ref}>
             <h2>Checkout</h2>
-            <p>{`Total Amount: $${"Total Price goes here"}`}</p>
+            <p>{`Total Amount: $${totalPrice}`}</p>
             <Input 
                 label="Full Name"
                 id="name"

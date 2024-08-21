@@ -2,19 +2,10 @@ import { useContext, forwardRef } from "react";
 import { CartContext } from "../../store/shopping-cart-context";
 import CartItems from "./CartItems";
 
-function calculateTotalPrice(itemsArr) {
-    let totalPrice = 0;
-    itemsArr.forEach(element => {
-        totalPrice += (element.quantity * element.price);
-    });
-    return totalPrice;
-}
 
 const Cart = forwardRef(function Cart({handleCloseModal, onCheckOut}, ref) {
     
-    let { items } = useContext(CartContext);
-
-    let totalPrice = calculateTotalPrice(items);
+    let { items, totalPrice } = useContext(CartContext);
 
     if (items.length === 0) {
         return <dialog className="modal" ref={ref}>

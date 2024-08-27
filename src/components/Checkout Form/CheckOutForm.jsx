@@ -1,42 +1,59 @@
 import { forwardRef, useContext } from "react";
 import { CartContext } from "../../store/shopping-cart-context";
+import { storeUserCommand } from "../../data/http";
 import Input from "./Input";
 
 const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal}, ref) {
  
-    let { totalPrice } = useContext(CartContext);
+    let { items, totalPrice } = useContext(CartContext);
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const userOrder = Object.fromEntries(formData.entries());
+
+        try {
+            await storeUserCommand(items, userOrder);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
     
     return (
         <dialog className="modal" ref={ref}>
             <h2>Checkout</h2>
             <p>{`Total Amount: $${totalPrice}`}</p>
-            <Input 
-                label="Full Name"
-                id="name"
-            />
-            <Input
-                label="E-Mail Address"
-                id="email"
-                type="email"
-            />
-            <Input 
-                label="Street"
-                id="street"
-            />
-            <div className="control-row">
+            <form onSubmit={handleSubmit}>
                 <Input 
-                    label="Postal Code"
-                    id="Postal-code"
+                    label="Full Name"
+                    id="name"
+                />
+                <Input
+                    label="E-Mail Address"
+                    id="email"
+                    type="email"
                 />
                 <Input 
-                    label="City"
-                    id="city"
+                    label="Street"
+                    id="street"
                 />
-            </div>
-            <div className="modal-actions">
-                <button className="text-button" onClick={handleCloseModal}>Close</button>
-                <button className="button">Go to checkout</button>
-            </div>
+                <div className="control-row">
+                    <Input 
+                        label="Postal Code"
+                        id="postal-code"
+                    />
+                    <Input 
+                        label="City"
+                        id="city"
+                    />
+                </div>
+            
+                <div className="modal-actions">
+                    <button className="text-button" onClick={handleCloseModal}>Close</button>
+                    <button className="button">Go to checkout</button>
+                </div>
+            </form>
         </dialog>
 
     );

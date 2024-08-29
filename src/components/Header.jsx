@@ -3,6 +3,7 @@ import { useContext, useRef } from "react";
 import { CartContext } from "../store/shopping-cart-context";
 import Cart from "./Cart/Cart";
 import CheckOutForm from "./Checkout Form/CheckOutForm";
+import OrderSubmitted from "./OrderSubmitted";
 
 export default function Header() {
 
@@ -12,6 +13,7 @@ export default function Header() {
 
     const cartDialog = useRef();
     const checkOutDialog = useRef();
+    const orderSubmittedDialog = useRef();
 
     function handleOpenModal(id) {
         if (id === "cart") {
@@ -24,9 +26,17 @@ export default function Header() {
     function handleCloseModal(id) {
         if (id === "cart") {
             cartDialog.current.close();
+
         } else if (id === "checkout") {
             checkOutDialog.current.close();
-            cartDialog.current.showModal();
+
+        } else if (id === "orderSubmitted") {
+            cartDialog.current.close();
+            checkOutDialog.current.close();
+            orderSubmittedDialog.current.showModal();
+        
+        } else if (id === "closeOrderSubmitted") {
+            orderSubmittedDialog.current.close();
         }
     }
 
@@ -48,7 +58,12 @@ export default function Header() {
             />
             <CheckOutForm 
                 ref={checkOutDialog}
-                handleCloseModal={() => handleCloseModal("checkout")} 
+                handleCloseModal={() => handleCloseModal("checkout")}
+                orderSubmitted={() => handleCloseModal("orderSubmitted")} 
+            />
+            <OrderSubmitted 
+                ref={orderSubmittedDialog}
+                handleCloseModal={() => handleCloseModal("closeOrderSubmitted")}
             />
         </>        
     );

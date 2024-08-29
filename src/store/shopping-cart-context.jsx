@@ -10,7 +10,7 @@ function calculateTotalPrice(itemsArr) {
     itemsArr.forEach(element => {
         totalPrice += (element.quantity * element.price);
     });
-    return totalPrice;
+    return totalPrice.toFixed(2);
 }
 
 function shoppingCartReducer(state, action) {
@@ -84,6 +84,11 @@ function shoppingCartReducer(state, action) {
         return {
             items: updatedItems
         }
+    
+    } else if (action.type === "CLEAR_ITEMS") {
+        return {
+            items: []
+        }
     }
 
     return state;
@@ -125,6 +130,12 @@ export default function CartContextProvider({children}) {
         })
     }
 
+    function clearCartItems() {
+        shoppingCartDispatch({
+            type: "CLEAR_ITEMS",
+        })
+    }
+
     const totalPrice = calculateTotalPrice(shoppingCart.items);
 
     console.log(shoppingCart.items);
@@ -134,7 +145,8 @@ export default function CartContextProvider({children}) {
         totalPrice,
         addItemToCart: handleAddItemToCart,
         updateCartItem: handleUpdateCartItem,
-        deleteCartItem: handleDeleteCartItem
+        deleteCartItem: handleDeleteCartItem,
+        clearCartItems
     };
 
     return <CartContext.Provider value={cartCtx}>

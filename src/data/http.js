@@ -9,7 +9,7 @@ export async function fetchAvailableMeals() {
     return fetchedMeals;
 }
 
-export async function storeUserCommand(cartItems, userOrder) {
+export async function storeUserOrder(cartItems, userOrder) {
     const response = await fetch("http://localhost:3000/orders", {
         method: "POST",
         body: JSON.stringify({

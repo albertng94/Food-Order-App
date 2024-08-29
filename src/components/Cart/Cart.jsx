@@ -11,7 +11,7 @@ const Cart = forwardRef(function Cart({handleCloseModal, onCheckOut}, ref) {
         return <dialog className="modal" ref={ref}>
         <h2>Your Cart</h2>
         <p className="cart-item">Your cart is empty. Make sure to select your favourite meals first.</p>
-        <div className="modal-actions cart-without-items">
+        <div className="modal-actions simple-modal-button">
             <button className="button" onClick={handleCloseModal}>Close</button>
         </div>
     </dialog>
@@ -21,7 +21,7 @@ const Cart = forwardRef(function Cart({handleCloseModal, onCheckOut}, ref) {
         <dialog className="modal cart" ref={ref}>
             <h2>Your Cart</h2>
             <CartItems />
-            <p className="cart-total">{`$${totalPrice.toFixed(2)}`}</p>
+            <p className="cart-total">{`$${totalPrice}`}</p>
             <div className="modal-actions">
                 <button className="text-button" onClick={handleCloseModal}>Close</button>
                 <button className="button" onClick={onCheckOut}>Go to checkout</button>

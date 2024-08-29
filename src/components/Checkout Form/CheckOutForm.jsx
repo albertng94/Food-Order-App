@@ -1,11 +1,11 @@
 import { forwardRef, useContext } from "react";
 import { CartContext } from "../../store/shopping-cart-context";
-import { storeUserCommand } from "../../data/http";
+import { storeUserOrder } from "../../data/http";
 import Input from "./Input";
 
-const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal}, ref) {
+const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal, orderSubmitted}, ref) {
  
-    let { items, totalPrice } = useContext(CartContext);
+    let { items, totalPrice, clearCartItems } = useContext(CartContext);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -14,10 +14,14 @@ const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal}, ref) {
         const userOrder = Object.fromEntries(formData.entries());
 
         try {
-            await storeUserCommand(items, userOrder);
+            await storeUserOrder(items, userOrder);
         } catch (error) {
             console.log(error.message);
+            return;
         }
+
+        orderSubmitted();
+        clearCartItems();
     }
     
     return (
@@ -50,7 +54,7 @@ const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal}, ref) {
                 </div>
             
                 <div className="modal-actions">
-                    <button className="text-button" onClick={handleCloseModal}>Close</button>
+                    <button className="text-button" type="button" onClick={handleCloseModal}>Close</button>
                     <button className="button">Go to checkout</button>
                 </div>
             </form>

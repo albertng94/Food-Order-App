@@ -3,7 +3,7 @@ export async function fetchAvailableMeals() {
     const fetchedMeals = await response.json();
 
     if (!response.ok) {
-        throw new Error("Failed to fetch meals.");
+        throw new Error();
     }
 
     return fetchedMeals;
@@ -24,7 +24,7 @@ export async function storeUserOrder(cartItems, userOrder) {
     });
     const resData = await response.json();
     if (!response.ok) {
-        throw new Error("Failed to process command.");
+        throw new Error();
     }
     return resData.message;
 }

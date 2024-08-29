@@ -20,7 +20,7 @@ export default function MealOffer() {
                 setAvailableMeals(fetchedMeals);
             } catch (error) {
                 setError({
-                    message: error.message || "Unable to load available meals, please try again later..."
+                    message: error.message || "Unable to load available meals. Please try again later..."
                 });
                 setIsFetching(false);
             }
@@ -36,7 +36,7 @@ export default function MealOffer() {
 
     if (error) {
         return <Error 
-            title={"An error occurred!"} 
+            title={"An unexpected error occurred!"} 
             message={error.message}
             onConfirm={handleErrorModal}
         />

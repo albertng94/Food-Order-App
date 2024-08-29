@@ -19,6 +19,7 @@ export default function Header() {
         if (id === "cart") {
             cartDialog.current.showModal();
         } else if (id === "checkout") {
+            cartDialog.current.close();
             checkOutDialog.current.showModal();
         }
     }
@@ -29,9 +30,9 @@ export default function Header() {
 
         } else if (id === "checkout") {
             checkOutDialog.current.close();
+            cartDialog.current.showModal();
 
         } else if (id === "orderSubmitted") {
-            cartDialog.current.close();
             checkOutDialog.current.close();
             orderSubmittedDialog.current.showModal();
         

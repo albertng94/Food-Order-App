@@ -1,11 +1,14 @@
-import { forwardRef, useContext } from "react";
+import { forwardRef, useContext, useState } from "react";
 import { CartContext } from "../../store/shopping-cart-context";
 import { storeUserOrder } from "../../data/http";
 import Input from "./Input";
+import Error from "../Error";
 
 const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal, orderSubmitted}, ref) {
  
     let { items, totalPrice, clearCartItems } = useContext(CartContext);
+
+    const [error, setError] = useState(false);
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -16,12 +19,26 @@ const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal, orderSu
         try {
             await storeUserOrder(items, userOrder);
         } catch (error) {
-            console.log(error.message);
+            setError({
+                message: error.message || "Unable to process your order. Please try again later..."
+            });
             return;
         }
 
         orderSubmitted();
         clearCartItems();
+    }
+
+    function handleErrorModal() {
+        setError(false);
+    }
+
+    if (error) {
+        return <Error
+            title={"An unexpected error occurred!"}
+            message={error.message}
+            onConfirm={handleErrorModal}
+        />
     }
     
     return (

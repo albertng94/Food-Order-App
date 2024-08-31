@@ -49,24 +49,33 @@ const CheckOutForm = forwardRef(function CheckOutForm({handleCloseModal, orderSu
                 <Input 
                     label="Full Name"
                     id="name"
+                    pattern="^[a-zA-ZñÑ\s]+$"
+                    title="Only letters allowed"
+                    required
                 />
                 <Input
                     label="E-Mail Address"
                     id="email"
                     type="email"
+                    required
                 />
                 <Input 
                     label="Street"
                     id="street"
+                    required
                 />
                 <div className="control-row">
                     <Input 
                         label="Postal Code"
                         id="postal-code"
+                        required
                     />
                     <Input 
                         label="City"
                         id="city"
+                        pattern="^[a-zA-ZñÑ\s]+$"
+                        title="Only letters allowed"
+                        required
                     />
                 </div>
             

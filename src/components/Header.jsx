@@ -1,5 +1,5 @@
 import logo from "../assets/logo.jpg";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useCallback } from "react";
 import { CartContext } from "../store/shopping-cart-context";
 import Cart from "./Cart/Cart";
 import CheckOutForm from "./Checkout Form/CheckOutForm";
@@ -15,16 +15,19 @@ export default function Header() {
     const checkOutDialog = useRef();
     const orderSubmittedDialog = useRef();
 
-    function handleOpenModal(id) {
+    const handleOpenModal = useCallback(function handleOpenModal(id) {
         if (id === "cart") {
             cartDialog.current.showModal();
         } else if (id === "checkout") {
             cartDialog.current.close();
             checkOutDialog.current.showModal();
+        } else if (id === "orderSubmitted") {
+            checkOutDialog.current.close();
+            orderSubmittedDialog.current.showModal();
         }
-    }
+    }, [cartDialog, checkOutDialog, orderSubmittedDialog]);
 
-    function handleCloseModal(id) {
+    const handleCloseModal = useCallback(function handleCloseModal(id) {
         if (id === "cart") {
             cartDialog.current.close();
 
@@ -33,13 +36,17 @@ export default function Header() {
             cartDialog.current.showModal();
 
         } else if (id === "orderSubmitted") {
-            checkOutDialog.current.close();
-            orderSubmittedDialog.current.showModal();
-        
-        } else if (id === "closeOrderSubmitted") {
             orderSubmittedDialog.current.close();
         }
-    }
+    }, [cartDialog, checkOutDialog, orderSubmittedDialog]);
+
+    const handleCloseCheckout = useCallback(() => handleCloseModal("checkout"), [handleCloseModal]);
+    const handleCloseCart = useCallback(() => handleCloseModal("cart"), [handleCloseModal]);
+    const handleCloseOrderSubmitted = useCallback(() => handleCloseModal("orderSubmitted"), [handleCloseModal]);
+
+    const handleOpenCart = useCallback(() => handleOpenModal("cart"), [handleOpenModal]);
+    const handleOpenCheckout = useCallback(() => handleOpenModal("checkout"), [handleOpenModal])
+    const handleOpenOrderSubmitted = useCallback(() => handleOpenModal("orderSubmitted"), [handleOpenModal]);
 
     return (
         <>
@@ -48,23 +55,23 @@ export default function Header() {
                     <img src={logo} alt="A burger logo" />
                     <h1>REACTFOOD</h1>
                 </div>
-                <button className="text-button" onClick={() => handleOpenModal("cart")}>
+                <button className="text-button" onClick={handleOpenCart}>
                     {(totalItems > 0) ? `Cart (${totalItems})` : "Cart"}
                 </button>
             </div>
             <Cart 
                 ref={cartDialog} 
-                handleCloseModal={() => handleCloseModal("cart")}
-                onCheckOut={() => handleOpenModal("checkout")} 
+                handleCloseModal={handleCloseCart}
+                onCheckOut={handleOpenCheckout} 
             />
             <CheckOutForm 
                 ref={checkOutDialog}
-                handleCloseModal={() => handleCloseModal("checkout")}
-                orderSubmitted={() => handleCloseModal("orderSubmitted")} 
+                handleCloseModal={handleCloseCheckout}
+                orderSubmitted={handleOpenOrderSubmitted} 
             />
             <OrderSubmitted 
                 ref={orderSubmittedDialog}
-                handleCloseModal={() => handleCloseModal("closeOrderSubmitted")}
+                handleCloseModal={handleCloseOrderSubmitted}
             />
         </>        
     );

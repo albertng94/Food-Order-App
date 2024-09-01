@@ -1,6 +1,6 @@
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 
-const OrderSubmitted = forwardRef(function OrderSubmited({handleCloseModal}, ref) {
+const OrderSubmitted = memo(forwardRef(function OrderSubmited({handleCloseModal}, ref) {
     return (
         <dialog className="modal" ref={ref}>
             <h2>Success!</h2>
@@ -11,6 +11,6 @@ const OrderSubmitted = forwardRef(function OrderSubmited({handleCloseModal}, ref
             </div>
         </dialog>
     );
-});
+}));
 
 export default OrderSubmitted;

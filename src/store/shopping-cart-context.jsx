@@ -138,8 +138,6 @@ export default function CartContextProvider({children}) {
 
     const totalPrice = calculateTotalPrice(shoppingCart.items);
 
-    console.log(shoppingCart.items);
-
     let cartCtx = {
         items: shoppingCart.items,
         totalPrice,

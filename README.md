@@ -4,7 +4,7 @@ Project to create a Food-Order App (from the "React - The Complete Guide 2024 (i
 - The "index.css" file which came given as it was not the objective of the project to focus on the styling. Even so, I have added some styling to build an Error Modal and some little extra functionalities like the bin icon which is used to delete the cart items.
 - The backend of the project which also came given, as the course is focused on frontend development.
 
-The goal of the project was top create a web which allows the user to select among a handful of food options which are retrieved from the backend server. After that, the user can go to a "Cart" modal and modify the quantity of items or commit the order by filling up a form with its personal details. The user's order is then saved into the backend.
+The goal of the project was to create a web which allows the user to select among a handful of food options which are retrieved from the backend server. After that, the user can go to a "Cart" modal and modify the quantity of items or commit the order by filling up a form with its personal details. The user's order is then saved into the backend.
 
 **Result:**
 ![image](https://github.com/user-attachments/assets/687f4e41-4823-4ec5-8f2c-11c91c91ff3b)
